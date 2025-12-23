@@ -1,14 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import LoginPage from '@/components/LoginPage';
+import DashboardRouter from '@/components/DashboardRouter';
+
+export type UserRole = 'cashier' | 'head-cashier' | 'admin' | 'creator' | 'nikitovsky' | 'client';
+
+export interface User {
+  role: UserRole;
+  username: string;
+}
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
-    </div>
-  );
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  const handleLogin = (user: User) => {
+    setCurrentUser(user);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+  };
+
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
+  return <DashboardRouter user={currentUser} onLogout={handleLogout} />;
 };
 
 export default Index;
