@@ -14,8 +14,8 @@ const DashboardRouter = ({ user, onLogout }: DashboardRouterProps) => {
       return <ClientDashboard user={user} onLogout={onLogout} />;
     case 'cashier':
     case 'head-cashier':
-      return <CashierDashboard user={user} onLogout={onLogout} />;
     case 'admin':
+      return <CashierDashboard user={user} onLogout={onLogout} />;
     case 'creator':
     case 'nikitovsky':
       return <AdminDashboard user={user} onLogout={onLogout} />;

@@ -47,6 +47,10 @@ const AdminDashboard = ({ user, onLogout }: AdminDashboardProps) => {
 
   const getRoleBadge = () => {
     switch (user.role) {
+      case 'cashier':
+        return <Badge variant="secondary">Кассир</Badge>;
+      case 'head-cashier':
+        return <Badge variant="default">Главный кассир</Badge>;
       case 'admin':
         return <Badge variant="default">Администратор</Badge>;
       case 'creator':
@@ -78,13 +82,70 @@ const AdminDashboard = ({ user, onLogout }: AdminDashboardProps) => {
 
       <div className="container mx-auto p-4">
         <Tabs defaultValue="main" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-4">
+          <TabsList className="grid w-full grid-cols-6 mb-4">
             <TabsTrigger value="main">Главная</TabsTrigger>
+            <TabsTrigger value="cashier">Касса</TabsTrigger>
             <TabsTrigger value="clients">Клиенты</TabsTrigger>
             <TabsTrigger value="sms">SMS</TabsTrigger>
             <TabsTrigger value="archive">Архив</TabsTrigger>
             <TabsTrigger value="settings">Настройки</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="cashier">
+            <div className="grid gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-black">Приём документов</CardTitle>
+                  <CardDescription>Быстрый доступ к приёму и выдаче документов</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <Button className="h-24 text-lg bg-black hover:bg-gray-800">
+                      <Icon name="PackagePlus" className="mr-2" size={32} />
+                      Принять документ
+                    </Button>
+                    <Button className="h-24 text-lg bg-black hover:bg-gray-800">
+                      <Icon name="PackageMinus" className="mr-2" size={32} />
+                      Выдать документ
+                    </Button>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>QR-код</Label>
+                    <div className="flex gap-2">
+                      <Input placeholder="Введите или сканируйте QR" className="text-lg" />
+                      <Button variant="outline">
+                        <Icon name="Shuffle" size={20} />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-black">Последние операции</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <p className="font-medium text-black">QR-045 - Паспорт</p>
+                        <p className="text-sm text-gray-600">Клиент: Иванов И.И.</p>
+                      </div>
+                      <Badge className="bg-green-500">Принят</Badge>
+                    </div>
+                    <div className="flex justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <p className="font-medium text-black">QR-042 - Фото</p>
+                        <p className="text-sm text-gray-600">Клиент: Петров П.П.</p>
+                      </div>
+                      <Badge className="bg-blue-500">Выдан</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
 
           <TabsContent value="main">
             <div className="grid md:grid-cols-3 gap-4">

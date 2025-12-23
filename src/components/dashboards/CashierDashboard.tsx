@@ -62,7 +62,11 @@ const CashierDashboard = ({ user, onLogout }: CashierDashboardProps) => {
           <div>
             <h1 className="text-2xl font-bold text-black">Панель кассира</h1>
             <p className="text-gray-600">
-              {user.role === 'head-cashier' ? 'Главный кассир' : 'Кассир'}: {user.username}
+              {user.role === 'head-cashier' 
+                ? 'Главный кассир' 
+                : user.role === 'admin' 
+                ? 'Администратор' 
+                : 'Кассир'}: {user.username}
             </p>
           </div>
           <Button onClick={onLogout} variant="outline">
