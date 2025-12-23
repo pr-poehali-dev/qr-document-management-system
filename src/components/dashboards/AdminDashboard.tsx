@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { User } from '@/pages/Index';
 import { Badge } from '@/components/ui/badge';
+import SMSNotification from '@/components/SMSNotification';
 
 interface AdminDashboardProps {
   user: User;
@@ -253,55 +254,7 @@ const AdminDashboard = ({ user, onLogout }: AdminDashboardProps) => {
           </TabsContent>
 
           <TabsContent value="sms">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-black">Отправка SMS-уведомлений</CardTitle>
-                <CardDescription>Доступно только для администратора и создателя</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="smsPhone">Номер телефона клиента</Label>
-                  <Input
-                    id="smsPhone"
-                    value={smsData.phone}
-                    onChange={(e) => setSmsData({ ...smsData, phone: e.target.value })}
-                    placeholder="+7 (___) ___-__-__"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="smsMessage">Сообщение</Label>
-                  <Input
-                    id="smsMessage"
-                    value={smsData.message}
-                    onChange={(e) => setSmsData({ ...smsData, message: e.target.value })}
-                    placeholder="Ваш документ готов к выдаче"
-                  />
-                </div>
-
-                <div className="flex gap-2">
-                  <Button
-                    onClick={() => setSmsData({ ...smsData, message: 'Ваш товар готов к выдаче!' })}
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    Готов к выдаче
-                  </Button>
-                  <Button
-                    onClick={() => setSmsData({ ...smsData, message: 'К сожалению, ваш товар утерян.' })}
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    Утерян
-                  </Button>
-                </div>
-
-                <Button onClick={handleSendSMS} className="w-full bg-black hover:bg-gray-800">
-                  <Icon name="Send" className="mr-2" size={20} />
-                  Отправить SMS
-                </Button>
-              </CardContent>
-            </Card>
+            <SMSNotification />
           </TabsContent>
 
           <TabsContent value="archive">
